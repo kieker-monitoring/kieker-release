@@ -3,10 +3,12 @@ pipeline {
   stages {
     stage('Release Version Selection') {
       steps {
-        input message: 'What is the version of the new release?', 
-                                    parameters: [string(defaultValue: '', description: '', name: 'release_version', trim: true)], 
-                                    submitter: 'avh,chw,rju,thomas.duellmann'   
-        echo "Selected Version: ${release_version}"
+        script {
+          env.RELEASE_VERSION = input message: 'What is the version of the new release?', 
+                                      parameters: [string(defaultValue: '', description: '', name: 'release_version', trim: true)], 
+                                      submitter: 'avh,chw,rju,thomas.duellmann'   
+        }
+        echo "Selected Version: ${env.RELEASE_VERSION}"
       }
     }
   }
